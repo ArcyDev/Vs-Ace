@@ -1,0 +1,7 @@
+Happy:dad:I'm super amped up, man! I think--Oh...
+Neutral:bf:Bap?
+Embarassed:dad:Haha, sorry about the storm. This always happens when I get too excited.
+Neutral:gf:[Happy]
+Neutral:dad:Oh, looks like the bus is here.
+Happy:dad:Thanks for hanging out with me you two, I'd love to do this again sometime!
+Neutral:bf:Beepbeep!

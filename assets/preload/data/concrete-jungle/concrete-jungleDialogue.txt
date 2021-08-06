@@ -1,0 +1,6 @@
+Neutral:bf:Beep!
+Happy:dad:Huh? Oh, hey there! I'm Ace, what's up?
+Neutral:gf:[Happy]
+Neutral:dad:Manhattan? There's a bus that will take you there, but the next one doesn't arrive for a few minutes.
+Neutral:bf:Beep boop?
+Happy:dad:You want to battle in the meantime? Sure!

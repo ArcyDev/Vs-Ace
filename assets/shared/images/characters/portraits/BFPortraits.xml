@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="BFPortraits.png">
+	<SubTexture name="Neutral0000" x="22" y="31" width="354" height="430"/>
+    <SubTexture name="Happy0000" x="487" y="31" width="354" height="430"/>
+</TextureAtlas>

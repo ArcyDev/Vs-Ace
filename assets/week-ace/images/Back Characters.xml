@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Back Characters.png">
+	<!-- Created with Adobe Animate version 16.0.1.119 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="bop0000" x="10" y="10" width="1896" height="832"/>
+	<SubTexture name="bop0001" x="10" y="10" width="1896" height="832"/>
+	<SubTexture name="bop0002" x="10" y="852" width="1896" height="832"/>
+	<SubTexture name="bop0003" x="10" y="852" width="1896" height="832"/>
+	<SubTexture name="bop0004" x="10" y="1694" width="1896" height="832"/>
+	<SubTexture name="bop0005" x="10" y="1694" width="1896" height="832"/>
+	<SubTexture name="bop0006" x="10" y="2536" width="1896" height="832"/>
+	<SubTexture name="bop0007" x="10" y="2536" width="1896" height="832"/>
+	<SubTexture name="bop0008" x="10" y="2536" width="1896" height="832"/>
+	<SubTexture name="bop0009" x="10" y="2536" width="1896" height="832"/>
+	<SubTexture name="bop0010" x="10" y="2536" width="1896" height="832"/>
+	<SubTexture name="bop0011" x="10" y="2536" width="1896" height="832"/>
+	<SubTexture name="bop0012" x="10" y="2536" width="1896" height="832"/>
+	<SubTexture name="bop0013" x="10" y="2536" width="1896" height="832"/>
+</TextureAtlas>
