@@ -32,7 +32,13 @@ class StoryMenuState extends MusicBeatState
 	var curDifficulty:Int = 1;
 
 	public static var weekUnlocked:Array<Bool> = [true];
-	public static var unlockedFrostbite:Bool = false;
+	public static var characterUnlocked:Array<Bool> = [true, false, false];
+
+	public static var unlockedSongs:Array<String> = [];
+	public static var unlockedChars:Array<String> = [];
+
+	var unlocking:Bool = false;
+	var unlockSprites:FlxTypedGroup<FlxSprite>;
 
 	var weekCharacters:Array<Dynamic> = [
 		['ace', 'bf', 'gf']
@@ -212,21 +218,22 @@ class StoryMenuState extends MusicBeatState
 
 		updateText();
 
-		if (unlockedFrostbite)
+		if (unlockedSongs.length > 0 || unlockedChars.length > 0)
 		{
 			shadeBG = new FlxSprite(0, 0).makeGraphic(1280, 720, FlxColor.BLACK);
 			shadeBG.alpha = 0.9;
+			shadeBG.visible = false;
 			add(shadeBG);
 
-			aceIcon = new HealthIcon('ace-stare');
-			aceIcon.animation.curAnim.curFrame = 2;
-			aceIcon.screenCenter();
-			add(aceIcon);
+			unlockSprites = new FlxTypedGroup<FlxSprite>();
+			add(unlockSprites);
 
-			unlockText = new FlxText(0, 0, 0, 'A new storm appears in Freeplay!', 42);
-			unlockText.screenCenter();
-			unlockText.y += 150;
+			unlockText = new FlxText(0, 500, 0, '', 42);
+			unlockText.screenCenter(X);
+			unlockText.visible = false;
 			add(unlockText);
+
+			displayUnlocks();
 		}
 
 		var bullShit:Int = 0;
@@ -262,15 +269,34 @@ class StoryMenuState extends MusicBeatState
 			lock.y = grpWeekText.members[lock.ID].y;
 		});
 
-		if (unlockedFrostbite)
+		if (unlocking && !stopspamming)
 		{
 			if (controls.ACCEPT || controls.BACK)
 			{
+				stopspamming = true;
 				FlxG.sound.play(Paths.sound('confirmMenu'));
-				FlxTween.tween(shadeBG, {alpha: 0}, 1);
-				FlxTween.tween(aceIcon, {alpha: 0}, 1);
-				FlxTween.tween(unlockText, {alpha: 0}, 1);
-				unlockedFrostbite = false;
+
+				// Remove the unlock group
+				if (unlockedSongs.length > 0)
+				{
+					unlockedSongs = [];
+				}
+				else if (unlockedChars.length > 0)
+				{
+					unlockedChars = [];
+				}
+
+				for (i in 0...unlockSprites.length)
+				{
+					FlxTween.tween(unlockSprites.members[i], {alpha: 0}, 0.5);
+				}
+				FlxTween.tween(unlockText, {alpha: 0}, 0.5, {
+					onComplete: function(flx:FlxTween)
+					{
+						unlockSprites.clear();
+						displayUnlocks();
+					}
+				});
 			}
 		}
 		else
@@ -418,9 +444,15 @@ class StoryMenuState extends MusicBeatState
 			case 0:
 				grpWeekCharacters.members[1].setCharacter('bf');
 			case 1:
-				grpWeekCharacters.members[1].setCharacter('ace-bf');
+				if (!characterUnlocked[1])
+					grpWeekCharacters.members[1].setCharacter('ace-bfLock');
+				else
+					grpWeekCharacters.members[1].setCharacter('ace-bf');				
 			case 2:
-				grpWeekCharacters.members[1].setCharacter('retro-bf');
+				if (!characterUnlocked[2])
+					grpWeekCharacters.members[1].setCharacter('retro-bfLock');
+				else
+					grpWeekCharacters.members[1].setCharacter('retro-bf');
 		}
 
 		FlxG.sound.play(Paths.sound('scrollMenu'));
@@ -467,6 +499,9 @@ class StoryMenuState extends MusicBeatState
 
 	function changeSelection()
 	{
+		if (!characterUnlocked[curChar])
+			return;
+
 		if (difficultySelectors.visible)
 		{
 			difficultySelectors.visible = false;
@@ -543,4 +578,119 @@ class StoryMenuState extends MusicBeatState
 		FlxG.save.data.weekUnlocked = weekUnlocked.length - 1;
 		FlxG.save.flush();
 	}*/
+
+	/**
+	 * Goes through the justUnlocked array and displays all of it in a little neat UI.
+	 */
+	function displayUnlocks()
+	{
+		unlocking = true;
+
+		// Nothing left to unlock
+		if (unlockedSongs.length == 0 && unlockedChars.length == 0)
+		{
+			FlxTween.tween(shadeBG, {alpha: 0}, 0.5);
+			for (i in 0...unlockSprites.length)
+			{
+				FlxTween.tween(unlockSprites.members[i], {alpha: 0}, 0.5);
+			}
+			FlxTween.tween(unlockText, {alpha: 0}, 0.5, {
+				onComplete: function(flx:FlxTween)
+				{
+					shadeBG.visible = false;
+					unlockSprites.visible = false;
+					unlockText.visible = false;
+					remove(shadeBG);
+					remove(unlockSprites);
+					remove(unlockText);
+
+					unlocking = false;
+					stopspamming = false;
+				}
+			});
+			return;
+		}
+
+		if (unlockedSongs.length > 0)
+		{
+			// There's only one unlockable song
+			var unlockSprite = new HealthIcon('ace-stare');
+			unlockSprite.animation.curAnim.curFrame = 2;
+			unlockSprite.screenCenter();
+			unlockSprites.add(unlockSprite);
+
+			if (unlockSprite.alpha == 0)
+			{
+				FlxTween.tween(unlockSprite, {alpha: 1}, 0.5);
+			}
+
+			unlockText.text = 'A new storm appears in Freeplay!';
+			unlockText.screenCenter(X);
+
+			if (unlockText.alpha == 0)
+			{
+				FlxTween.tween(unlockText, {alpha: 1}, 0.5);
+			}
+
+			shadeBG.visible = true;
+			unlockText.visible = true;
+			stopspamming = false;
+			return;
+		}
+		else
+		{
+			for (i in 0...unlockedChars.length)
+			{
+				var unlockSprite = new FlxSprite();
+				switch(unlockedChars[i])
+				{
+					// Characters
+					case 'bf-retro':
+						unlockSprite = new Character(0, 0, 'bf-retro');
+						unlockSprite.scale.set(0.5, 0.5);
+						var tex = Paths.getSparrowAtlas('characters/bf-retro', 'shared');
+						unlockSprite.frames = tex;
+						unlockSprite.animation.addByPrefix('idle', 'BF idle dance', 24, true); // Make it looped
+						unlockSprite.animation.play('idle');
+					case 'bf-ace':
+						unlockSprite = new Character(0, 0, 'bf-ace');
+						var tex = Paths.getSparrowAtlas('characters/bf-ace', 'shared');
+						unlockSprite.scale.set(0.5, 0.5);
+						unlockSprite.frames = tex;
+						unlockSprite.animation.addByPrefix('idle', 'BF idle dance', 24, true); // Make it looped
+						unlockSprite.animation.play('idle');
+				}
+
+				unlockSprite.screenCenter();
+				unlockSprite.alpha = 0;
+				if (unlockedChars.length % 2 == 1)
+				{
+					unlockSprite.x += (i - (unlockedChars.length - 1) / 2) * 350;
+				}
+				else
+				{
+					unlockSprite.x += 175 + ((i - (unlockedChars.length / 2)) * 350);
+				}
+				unlockSprites.add(unlockSprite);
+
+				if (unlockSprite.alpha == 0)
+				{
+					FlxTween.tween(unlockSprite, {alpha: 1}, 0.5);
+				}
+			}
+
+			unlockText.text = "New story character" + (unlockedChars.length == 1 ? '' : 's') + " unlocked!";
+			unlockText.screenCenter(X);
+
+			if (unlockText.alpha == 0)
+			{
+				FlxTween.tween(unlockText, {alpha: 1}, 0.5);
+			}
+
+			shadeBG.visible = true;
+			unlockText.visible = true;
+			stopspamming = false;
+			return;
+		}
+	}
 }

@@ -26,7 +26,9 @@ class MenuCharacter extends FlxSprite
 	private static var settings:Map<String, CharacterSetting> = [
 		'bf' => new CharacterSetting(0, -20, 1.0, true),
 		'ace-bf' => new CharacterSetting(0, -20, 1.0, true),
+		'ace-bfLock' => new CharacterSetting(0, -20, 1.0, true),
 		'retro-bf' => new CharacterSetting(0, -20, 1.0, true),
+		'retro-bfLock' => new CharacterSetting(0, -20, 1.0, true),
 		'gf' => new CharacterSetting(50, 80, 1.5, true),
 		'ace' => new CharacterSetting(-15, 130),
 	];
@@ -49,8 +51,10 @@ class MenuCharacter extends FlxSprite
 		animation.addByPrefix('bfConfirm', 'BF HEY!!', 24, false);
 		animation.addByPrefix('ace-bf', "ace BF idle dance white", 24, false);
 		animation.addByPrefix('ace-bfConfirm', 'ace BF HEY!!', 24, false);
+		animation.addByPrefix('ace-bfLock', 'ace BF locked', 24, false);
 		animation.addByPrefix('retro-bf', "retro BF idle dance white", 24, false);
 		animation.addByPrefix('retro-bfConfirm', 'retro BF HEY!!', 24, false);
+		animation.addByPrefix('retro-bfLock', 'retro BF locked', 24, false);
 		animation.addByIndices('gf-left', 'GF Dancing Beat WHITE', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
 		animation.addByIndices('gf-right', 'GF Dancing Beat WHITE', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 		animation.addByPrefix('ace', "Ace idle dance BLACK LINE", 24, false);

@@ -119,6 +119,14 @@ class KadeEngineData
 			}
 		}
 
+		if (FlxG.save.data.characterUnlocked != null)
+		{
+			for (i in 0...FlxG.save.data.characterUnlocked.length)
+			{
+				StoryMenuState.characterUnlocked[i] = FlxG.save.data.characterUnlocked[i];
+			}
+		}
+
 		Conductor.recalculateTimings();
 		PlayerSettings.player1.controls.loadKeyBinds();
 		KeyBinds.keyCheck();

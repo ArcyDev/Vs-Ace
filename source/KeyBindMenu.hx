@@ -136,7 +136,7 @@ class KeyBindMenu extends FlxSubState
                     textUpdate();
                 }
 
-                if (FlxG.keys.justPressed.ENTER){
+                if (FlxG.keys.justPressed.ENTER && !KeyBinds.gamepad){
                     FlxG.sound.play(Paths.sound('scrollMenu'));
                     state = "input";
                 }

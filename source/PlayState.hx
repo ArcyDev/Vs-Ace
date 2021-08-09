@@ -1881,7 +1881,21 @@ class PlayState extends MusicBeatState
 			{
 				FreeplayState.unlockedSongs[3] = true;
 				FlxG.save.data.unlockedSongs = FreeplayState.unlockedSongs;
-				StoryMenuState.unlockedFrostbite = true;
+				StoryMenuState.unlockedSongs.push('Frostbite');
+				FlxG.save.flush();
+			}
+			if (!StoryMenuState.characterUnlocked[1])
+			{
+				StoryMenuState.characterUnlocked[1] = true;
+				FlxG.save.data.characterUnlocked = StoryMenuState.characterUnlocked;
+				StoryMenuState.unlockedChars.push('bf-ace');
+				FlxG.save.flush();
+			}
+			if (!StoryMenuState.characterUnlocked[2])
+			{
+				StoryMenuState.characterUnlocked[2] = true;
+				FlxG.save.data.characterUnlocked = StoryMenuState.characterUnlocked;
+				StoryMenuState.unlockedChars.push('bf-retro');
 				FlxG.save.flush();
 			}
 
@@ -2666,7 +2680,21 @@ class PlayState extends MusicBeatState
 						{
 							FreeplayState.unlockedSongs[3] = true;
 							FlxG.save.data.unlockedSongs = FreeplayState.unlockedSongs;
-							StoryMenuState.unlockedFrostbite = true;
+							StoryMenuState.unlockedSongs.push('Frostbite');
+							FlxG.save.flush();
+						}
+						if (!StoryMenuState.characterUnlocked[1])
+						{
+							StoryMenuState.characterUnlocked[1] = true;
+							FlxG.save.data.characterUnlocked = StoryMenuState.characterUnlocked;
+							StoryMenuState.unlockedChars.push('bf-ace');
+							FlxG.save.flush();
+						}
+						if (!StoryMenuState.characterUnlocked[2])
+						{
+							StoryMenuState.characterUnlocked[2] = true;
+							FlxG.save.data.characterUnlocked = StoryMenuState.characterUnlocked;
+							StoryMenuState.unlockedChars.push('bf-retro');
 							FlxG.save.flush();
 						}
 
@@ -3398,7 +3426,7 @@ class PlayState extends MusicBeatState
 	override function stepHit()
 	{
 		super.stepHit();
-		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
+		if (!paused && (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20))
 			resyncVocals();
 
 		#if windows

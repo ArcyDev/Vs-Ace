@@ -64,7 +64,7 @@ class CreditsState extends MusicBeatState
         [
             [null, 'https://twitter.com/BSkelebunny01', 0xFFf66ebf],
             [null, 'https://twitter.com/Daxite_', 0xFF2b277d],
-            [null, 'https://twitter.com/DSiiiiiix', 0xFF3063ff],
+            [null, 'https://twitter.com/DSiiiiiix', 0xFF6d6d6d],
             [null, 'https://twitter.com/KamexVGM', 0xFFbae2ff],
             [null, 'https://twitter.com/PincerProd', 0xFF65faf3],
             [null, 'https://twitter.com/lolychichi', 0xFFfec4d0],
