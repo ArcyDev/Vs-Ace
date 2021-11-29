@@ -298,7 +298,7 @@ class FreeplayState extends MusicBeatState
 		
 		intendedScore = Highscore.getScore(songHighscore, curDifficulty);
 		combo = Highscore.getCombo(songHighscore, curDifficulty);
-		diffCalcText.text = 'RATING: ${difficultyRatings[curSelected][curDifficulty])}';
+		diffCalcText.text = 'RATING: ${difficultyRatings[curSelected][curDifficulty]}';
 		diffText.text = CoolUtil.difficultyFromInt(curDifficulty).toUpperCase();
 	}
 
@@ -338,7 +338,7 @@ class FreeplayState extends MusicBeatState
 		intendedScore = Highscore.getScore(songHighscore, curDifficulty);
 		combo = Highscore.getCombo(songHighscore, curDifficulty);
 
-		diffCalcText.text = 'RATING: ${difficultyRatings[curSelected][curDifficulty])}';
+		diffCalcText.text = 'RATING: ${difficultyRatings[curSelected][curDifficulty]}';
 		
 		#if PRELOAD_ALL
 		if (songs[curSelected].songCharacter == "sm")
